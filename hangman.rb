@@ -1,8 +1,10 @@
 class Hangman
   def initialize
-    @word_length = Random.rand(5..7)
+    @word_length = Random.new.rand(5..7)
     @secret_word = ""
     @dictionary = []
+    @number_of_guesses = 8
+    @current_state = "_ " * @number_of_guesses
   end
 
   # Get dictionary
@@ -13,12 +15,36 @@ class Hangman
 
   # ramdonly select a word and set as secret word
   def computer_selects_word
-    @secret_word = @dictionary[Random.rand(@dictionary.length)]
+    @secret_word = @dictionary[Random.new.rand(@dictionary.length)]
   end
-  puts @secret_word
+
+  def display_word
+    puts @current_state
+  end
+
+  def player_guess
+    puts "You have #{@number_of_guesses} remaining..."
+    puts "Guess a letter"
+    guess = gets.chomp
+
+    @number_of_guesses -= 1
+  end
+  
+  def play_game
+    set_dictionary
+    computer_selects_word
+    
+    puts "The computer has selected an impossible word of #{@word_length} letters."
+    puts "You have #{@number_of_guesses} attempts to guess the word."
+    puts "Good luck."
+    puts "-----------------------"
+
+    display_word
+  end
+  
 end
 
 game = Hangman.new
-game.computer_selects_word
+game.play_game
 
 
