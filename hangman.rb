@@ -19,6 +19,6 @@ class Hangman
 end
 
 game = Hangman.new
-game.set_dictionary
+game.computer_selects_word
 
 
